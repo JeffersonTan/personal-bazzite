@@ -37,7 +37,10 @@ rpm-ostree install windscribe.rpm
 
 mv "/opt/$PACKAGE_OPT_NAME" "$OPT_PATH"
 
-ln -s "${OPT_PATH}/windscribe/Windscribe" /usr/bin
+ln -s "${OPT_PATH}/Windscribe" /usr/bin
+
+systemctl enable windscribe-helper
+systemctl start windscribe-helper
 
 # Register path symlink
 # We do this via tmpfiles.d so that it is created by the live system.
