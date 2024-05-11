@@ -21,3 +21,31 @@ rpm-ostree install screen
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
+
+# Install Windscribe
+echo "Installing Windscribe VPN"
+
+PACKAGE_NAME="Windscribe"
+PACKAGE_OPT_NAME="windscribe"
+UNPACK_PATH="/tmp/${PACKAGE_NAME}"
+OPT_PATH="/usr/lib/${PACKAGE_OPT_NAME}"
+
+mkdir -p /opt
+
+curl -Lo windscribe.rpm https://windscribe.com/install/desktop/linux_rpm_x64
+rpm-ostree install windscribe.rpm
+
+mv "/opt/$PACKAGE_OPT_NAME" "$OPT_PATH"
+
+ln -s "${OPT_PATH}/windscribe/Windscribe" /usr/bin
+ln -s "${OPT_PATH}/windscribe/windscribe-cli" /usr/bin
+ln -s "${OPT_PATH}/windscribe/windscribe-authhelper" /usr/bin
+ln -s "${OPT_PATH}/windscribe/helper" /usr/bin
+
+# Register path symlink
+# We do this via tmpfiles.d so that it is created by the live system.
+# use \x20 for whitespace as spec.
+cat >/usr/lib/tmpfiles.d/windscribe.conf <<EOF
+L  /opt/windscribe  -  -  -  -  /usr/lib/windscribe
+EOF
+
