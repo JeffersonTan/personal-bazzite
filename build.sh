@@ -38,9 +38,6 @@ rpm-ostree install windscribe.rpm
 mv "/opt/$PACKAGE_OPT_NAME" "$OPT_PATH"
 
 ln -s "${OPT_PATH}/windscribe/Windscribe" /usr/bin
-ln -s "${OPT_PATH}/windscribe/windscribe-cli" /usr/bin
-ln -s "${OPT_PATH}/windscribe/windscribe-authhelper" /usr/bin
-ln -s "${OPT_PATH}/windscribe/helper" /usr/bin
 
 # Register path symlink
 # We do this via tmpfiles.d so that it is created by the live system.
