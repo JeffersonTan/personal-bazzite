@@ -30,7 +30,7 @@ PACKAGE_OPT_NAME="windscribe"
 UNPACK_PATH="/tmp/${PACKAGE_NAME}"
 OPT_PATH="/usr/lib/${PACKAGE_OPT_NAME}"
 
-mkdir -p /opt
+mkdir -p /var/opt
 
 curl -Lo windscribe.rpm https://windscribe.com/install/desktop/linux_rpm_x64
 rpm-ostree install windscribe.rpm
