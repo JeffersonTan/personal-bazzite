@@ -39,6 +39,12 @@ mv "/opt/$PACKAGE_OPT_NAME" "$OPT_PATH"
 
 ln -s "${OPT_PATH}/Windscribe" /usr/bin
 
-systemctl enable windscribe-helper
+# Register path symlink
+# We do this via tmpfiles.d so that it is created by the live system.
+# use \x20 for whitespace as spec.
+cat >/usr/lib/tmpfiles.d/windscribe.conf <<EOF
+L  /opt/windscribe /usr/lib/windscribe
+EOF
 
-echo "L /opt/windscribe  -  -  -  -  /usr/lib/windscribe" > /usr/lib/tmpfiles.d/windscribe.conf
+# Enable systemd unit(s)
+systemctl enable windscribe-helper
