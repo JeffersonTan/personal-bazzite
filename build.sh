@@ -37,6 +37,10 @@ rpm-ostree install windscribe.rpm
 
 mv "/opt/$PACKAGE_OPT_NAME" "$OPT_PATH"
 
+# Move Windscribe's systemd configs
+mv "/etc/systemd/system-preset/50-windscribe-helper.preset" "/usr/etc/systemd/system-preset/50-windscribe-helper.preset"
+mv "/etc/systemd/system/windscribe-helper.service" "/usr/etc/systemd/system/windscribe-helper.service"
+
 ln -s "${OPT_PATH}/Windscribe" /usr/bin
 
 systemctl enable windscribe-helper
