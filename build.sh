@@ -37,10 +37,6 @@ rpm-ostree install windscribe.rpm
 
 mv "/opt/$PACKAGE_OPT_NAME" "$OPT_PATH"
 
-# Move Windscribe's systemd configs
-mv "/etc/systemd/system-preset/50-windscribe-helper.preset" "/usr/etc/systemd/system-preset/50-windscribe-helper.preset"
-mv "/etc/systemd/system/windscribe-helper.service" "/usr/etc/systemd/system/windscribe-helper.service"
-
 ln -s "${OPT_PATH}/Windscribe" /usr/bin
 
 systemctl enable windscribe-helper
@@ -49,6 +45,6 @@ systemctl enable windscribe-helper
 # We do this via tmpfiles.d so that it is created by the live system.
 # use \x20 for whitespace as spec.
 cat >/usr/lib/tmpfiles.d/windscribe.conf <<EOF
-L  /opt/windscribe  -  -  -  -  /usr/lib/windscribe
+L  /opt/windscribe  -  -  /usr/lib/windscribe
 EOF
 
