@@ -1,4 +1,6 @@
-# image-template
+# Personal Bazzite GNOME
+
+This is my personal Bazzite GNOME image. The only thing I've added so far are Windscribe support.
 
 # Purpose
 
