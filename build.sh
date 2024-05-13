@@ -22,7 +22,7 @@ rpm-ostree install screen
 
 systemctl enable podman.socket
 
-# Install Windscribe
+### Install Windscribe
 echo "Installing Windscribe VPN"
 
 PACKAGE_NAME="Windscribe"
@@ -48,3 +48,11 @@ EOF
 
 # Enable systemd unit(s)
 systemctl enable windscribe-helper
+
+### Install HP drivers
+echo "Installing HP bullcrap"
+curl -Lo "hplip-3.23.12.tar.gz" "https://sourceforge.net/projects/hplip/files/hplip/3.23.12/hplip-3.23.12.tar.gz/download" && \
+	tar -xvf "hplip-3.23.12.tar.gz" && \
+	mv hplip-3.23.12/ /tmp/hplip
+cp -r /tmp/hplip/prnt/ /usr/share/hplip/prnt/ && \
+	rm -r /tmp/hplip
