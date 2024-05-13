@@ -51,8 +51,9 @@ systemctl enable windscribe-helper
 
 ### Install HP drivers
 echo "Installing HP bullcrap"
+mkdir /tmp/hplip
 curl -Lo "hplip-3.23.12.tar.gz" "https://sourceforge.net/projects/hplip/files/hplip/3.23.12/hplip-3.23.12.tar.gz/download" && \
-	tar -xvf "hplip-3.23.12.tar.gz" && \
-	mv hplip-3.23.12/ /tmp/hplip
+	mv hplip-3.23.12.tar.gz /tmp/ && \
+	tar -xvf hplip-3.23.12.tar.gz -C /tmp/hplip --strip-components=1 && \
 cp -r /tmp/hplip/prnt/ /usr/share/hplip/prnt/ && \
 	rm -r /tmp/hplip
