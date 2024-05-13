@@ -56,7 +56,7 @@ HPLIP_VERSION="3.23.12"
 
 mkdir /tmp/hplip
 curl -Lo "hplip-${HPLIP_VERSION}.tar.gz" "https://sourceforge.net/projects/hplip/files/hplip/${HPLIP_VERSION}/hplip-${HPLIP_VERSION}.tar.gz/download" && \
-	mv hplip-{$HPLIP_VERSION}.tar.gz /tmp/ && \
-	tar -xvf /tmp/hplip-{$HPLIP_VERSION}.tar.gz -C /tmp/hplip --no-same-permissions --strip-components=1 && \
+	mv hplip-${HPLIP_VERSION}.tar.gz /tmp/ && \
+	tar -xvf /tmp/hplip-${HPLIP_VERSION}.tar.gz -C /tmp/hplip --no-same-permissions --strip-components=1 && \
 cp -r /tmp/hplip/prnt/ /usr/share/hplip/prnt/ && \
 	rm -r /tmp/hplip
