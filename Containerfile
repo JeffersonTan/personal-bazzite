@@ -38,9 +38,10 @@ ARG SOURCE_SUFFIX="-gnome"
 ## SOURCE_TAG arg must be a version built for the specific image: eg, 39, 40, gts, latest
 ARG SOURCE_TAG="latest"
 
-# 
+# Build HP plugin
 ARG HPLIP_VERSION="3.23.12"
 FROM fedora-minimal:38 as builder
+
 # Prepare build directory
 RUN cd /tmp/
 RUN mkdir rpmbuild
@@ -50,6 +51,9 @@ RUN mkdir -p rpmbuild/RPMS/x86_64
 RUN mkdir rpmbuild/SOURCES
 RUN mkdir rpmbuild/SPECS
 RUN mkdir rpmbuild/SRPMS
+
+# Install build tools
+RUN dnf5 install -y git rpmdevtools
 
 # Download the .spec for building an RPM
 RUN git clone 'https://gitlab.com/greysector/rpms/hplip-plugin.git' && \
