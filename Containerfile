@@ -42,6 +42,9 @@ ARG SOURCE_TAG="latest"
 ARG HPLIP_VERSION="3.23.12"
 FROM fedora-minimal:38 as builder
 
+# Install build tools
+RUN dnf5 install -y git rpmdevtools
+
 # Prepare build directory
 RUN cd /tmp/ && \
     mkdir rpmbuild && \
@@ -50,26 +53,23 @@ RUN cd /tmp/ && \
     mkdir -p rpmbuild/RPMS/x86_64 && \
     mkdir rpmbuild/SOURCES && \
     mkdir rpmbuild/SPECS && \
-    mkdir rpmbuild/SRPMS
+    mkdir rpmbuild/SRPMS && \
 
-# Install build tools
-RUN dnf5 install -y git rpmdevtools
-
-# Download the .spec for building an RPM
-RUN git clone 'https://gitlab.com/greysector/rpms/hplip-plugin.git' && \
-    mv hplip-plugin/hplip-plugin.spec rpmbuild/SPECS/ && \
-    mv hplip-plugin/* rpmbuild/SOURCES/
+    # Download the .spec for building an RPM
+    git clone 'https://gitlab.com/greysector/rpms/hplip-plugin.git' && \
+    mv hplip-plugin/hplip-plugin.spec /tmp/rpmbuild/SPECS/ && \
+    mv hplip-plugin/* /tmp/rpmbuild/SOURCES/ && \
  
-# Download HP's plugins and move it to SOURCES
-RUN HPLIP_VERSION="3.23.12"
-RUN curl -Lo hplip-${HPLIP_VERSION}-plugin.run https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run
-RUN curl -Lo hplip-${HPLIP_VERSION}-plugin.run.asc https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run.asc
-RUN mv hplip-${HPLIP_VERSION}-plugin.* /tmp/rpmbuild/SOURCES/
+    # Download HP's plugins and move it to SOURCES
+    HPLIP_VERSION="3.23.12" && \
+    curl -Lo hplip-${HPLIP_VERSION}-plugin.run https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run && \
+    curl -Lo hplip-${HPLIP_VERSION}-plugin.run.asc https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run.asc && \
+    mv hplip-${HPLIP_VERSION}-plugin.* /tmp/rpmbuild/SOURCES/ && \
 
-# Time to build
-RUN echo "Building hplip-plugin RPM"
-RUN cd rpmbuild
-RUN rpmbuild -bb /tmp/rpmbuild/SPECS/hplip-plugin.spec
+    # Time to build
+    echo "Building hplip-plugin RPM" && \
+    cd rpmbuild && \
+    rpmbuild -bb /tmp/rpmbuild/SPECS/hplip-plugin.spec && \
 
 # Copy build artifact
 COPY --from=builder /tmp/rpmbuild/RPMS/x86_64/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm /tmp
