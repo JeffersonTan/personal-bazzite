@@ -46,33 +46,26 @@ FROM fedora-minimal:38 as builder
 RUN dnf5 install -y git rpmdevtools crudini
 
 # Prepare build directory
-RUN cd /tmp/ && \
-    mkdir rpmbuild && \
-    mkdir rpmbuild/BUILD && \
-    mkdir rpmbuild/BUILDROOT && \
-    mkdir -p rpmbuild/RPMS/x86_64 && \
-    mkdir rpmbuild/SOURCES && \
-    mkdir rpmbuild/SPECS && \
-    mkdir rpmbuild/SRPMS && \
+RUN rpmdev-setuptree && \
 
     # Download the .spec for building an RPM
     git clone 'https://gitlab.com/greysector/rpms/hplip-plugin.git' && \
-    mv hplip-plugin/hplip-plugin.spec /tmp/rpmbuild/SPECS/ && \
-    mv hplip-plugin/* /tmp/rpmbuild/SOURCES/ && \
+    mv hplip-plugin/hplip-plugin.spec /root/rpmbuild/SPECS/ && \
+    mv hplip-plugin/* /root/rpmbuild/SOURCES/ && \
  
     # Download HP's plugins and move it to SOURCES
     HPLIP_VERSION="3.23.12" && \
     curl -Lo hplip-${HPLIP_VERSION}-plugin.run https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run && \
     curl -Lo hplip-${HPLIP_VERSION}-plugin.run.asc https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run.asc && \
-    mv hplip-${HPLIP_VERSION}-plugin.* /tmp/rpmbuild/SOURCES/ && \
+    mv hplip-${HPLIP_VERSION}-plugin.* /root/rpmbuild/SOURCES/ && \
 
     # Time to build
     echo "Building hplip-plugin RPM" && \
     cd rpmbuild && \
-    rpmbuild -bb /tmp/rpmbuild/SPECS/hplip-plugin.spec && \
+    rpmbuild -bb /root/rpmbuild/SPECS/hplip-plugin.spec && \
 
 # Copy build artifact
-COPY --from=builder /tmp/rpmbuild/RPMS/x86_64/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm /tmp
+COPY --from=builder /root/rpmbuild/RPMS/x86_64/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm /tmp
 
 ### 2. SOURCE IMAGE
 ## this is a standard Containerfile FROM using the build ARGs above to select the right upstream image
@@ -84,10 +77,10 @@ ENV OS_VERSION=40
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
-COPY build.sh /tmp/build.sh
+COPY build.sh /root/build.sh
 
 RUN mkdir -p /var/lib/alternatives && \
-    /tmp/build.sh && \
+    /root/build.sh && \
     ostree container commit
 ## NOTES:
 # - /var/lib/alternatives is required to prevent failure with some RPM installs
