@@ -43,7 +43,7 @@ ARG HPLIP_VERSION="3.23.12"
 FROM fedora-minimal:38 as builder
 
 # Install build tools
-RUN dnf5 install -y git rpmdevtools
+RUN dnf5 install -y git rpmdevtools crudini
 
 # Prepare build directory
 RUN cd /tmp/ && \
