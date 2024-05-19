@@ -62,7 +62,7 @@ RUN rpmdev-setuptree && \
     # Time to build
     echo "Building hplip-plugin RPM" && \
     cd /root/rpmbuild && \
-    rpmbuild -bb /root/rpmbuild/SPECS/hplip-plugin.spec && \
+    rpmbuild -bb /root/rpmbuild/SPECS/hplip-plugin.spec
 
 # Copy build artifact
 COPY --from=builder /root/rpmbuild/RPMS/x86_64/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm /tmp
