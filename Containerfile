@@ -43,14 +43,14 @@ ARG HPLIP_VERSION="3.23.12"
 FROM fedora-minimal:38 as builder
 
 # Prepare build directory
-RUN cd /tmp/
-RUN mkdir rpmbuild
-RUN mkdir rpmbuild/BUILD
-RUN mkdir rpmbuild/BUILDROOT
-RUN mkdir -p rpmbuild/RPMS/x86_64
-RUN mkdir rpmbuild/SOURCES
-RUN mkdir rpmbuild/SPECS
-RUN mkdir rpmbuild/SRPMS
+RUN cd /tmp/ && \
+    mkdir rpmbuild && \
+    mkdir rpmbuild/BUILD && \
+    mkdir rpmbuild/BUILDROOT && \
+    mkdir -p rpmbuild/RPMS/x86_64 && \
+    mkdir rpmbuild/SOURCES && \
+    mkdir rpmbuild/SPECS && \
+    mkdir rpmbuild/SRPMS
 
 # Install build tools
 RUN dnf5 install -y git rpmdevtools
@@ -61,17 +61,18 @@ RUN git clone 'https://gitlab.com/greysector/rpms/hplip-plugin.git' && \
     mv hplip-plugin/* rpmbuild/SOURCES/
  
 # Download HP's plugins and move it to SOURCES
+RUN HPLIP_VERSION="3.23.12"
 RUN curl -Lo hplip-${HPLIP_VERSION}-plugin.run https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run
 RUN curl -Lo hplip-${HPLIP_VERSION}-plugin.run.asc https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run.asc
-RUN mv hplip-${HPLIP_VERSION}-plugin.* rpmbuild/SOURCES/
- 
+RUN mv hplip-${HPLIP_VERSION}-plugin.* /tmp/rpmbuild/SOURCES/
+
 # Time to build
 RUN echo "Building hplip-plugin RPM"
 RUN cd rpmbuild
-RUN rpmbuild -bb SPECS/hplip-plugin.spec
+RUN rpmbuild -bb /tmp/rpmbuild/SPECS/hplip-plugin.spec
 
 # Copy build artifact
-COPY --from=builder /tmp/rpmbuild/RPMS/x86_64/hplip-plugin-3.23.12-1.x86_64.rpm /tmp
+COPY --from=builder /tmp/rpmbuild/RPMS/x86_64/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm /tmp
 
 ### 2. SOURCE IMAGE
 ## this is a standard Containerfile FROM using the build ARGs above to select the right upstream image
