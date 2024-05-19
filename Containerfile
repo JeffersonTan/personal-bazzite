@@ -38,6 +38,36 @@ ARG SOURCE_SUFFIX="-gnome"
 ## SOURCE_TAG arg must be a version built for the specific image: eg, 39, 40, gts, latest
 ARG SOURCE_TAG="latest"
 
+# 
+ARG HPLIP_VERSION="3.23.12"
+FROM fedora-minimal:38 as builder
+# Prepare build directory
+RUN cd /tmp/
+RUN mkdir rpmbuild
+RUN mkdir rpmbuild/BUILD
+RUN mkdir rpmbuild/BUILDROOT
+RUN mkdir -p rpmbuild/RPMS/x86_64
+RUN mkdir rpmbuild/SOURCES
+RUN mkdir rpmbuild/SPECS
+RUN mkdir rpmbuild/SRPMS
+
+# Download the .spec for building an RPM
+RUN git clone 'https://gitlab.com/greysector/rpms/hplip-plugin.git' && \
+RUN mv hplip-plugin/hplip-plugin.spec rpmbuild/SPECS/
+RUN mv hplip-plugin/* rpmbuild/SOURCES/
+ 
+# Download HP's plugins and move it to SOURCES
+RUN curl -Lo hplip-${HPLIP_VERSION}-plugin.run https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run
+RUN curl -Lo hplip-${HPLIP_VERSION}-plugin.run.asc https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run.asc
+RUN mv hplip-${HPLIP_VERSION}-plugin.* rpmbuild/SOURCES/
+ 
+# Time to build
+RUN echo "Building hplip-plugin RPM"
+RUN cd rpmbuild
+RUN rpmbuild -bb SPECS/hplip-plugin.spec
+
+# Copy build artifact
+COPY --from=builder /tmp/rpmbuild/RPMS/x86_64/hplip-plugin-3.23.12-1.x86_64.rpm /tmp
 
 ### 2. SOURCE IMAGE
 ## this is a standard Containerfile FROM using the build ARGs above to select the right upstream image
