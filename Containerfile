@@ -57,8 +57,8 @@ RUN dnf5 install -y git rpmdevtools
 
 # Download the .spec for building an RPM
 RUN git clone 'https://gitlab.com/greysector/rpms/hplip-plugin.git' && \
-RUN mv hplip-plugin/hplip-plugin.spec rpmbuild/SPECS/
-RUN mv hplip-plugin/* rpmbuild/SOURCES/
+    mv hplip-plugin/hplip-plugin.spec rpmbuild/SPECS/ && \
+    mv hplip-plugin/* rpmbuild/SOURCES/
  
 # Download HP's plugins and move it to SOURCES
 RUN curl -Lo hplip-${HPLIP_VERSION}-plugin.run https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run
