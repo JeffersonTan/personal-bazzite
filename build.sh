@@ -4,7 +4,6 @@ set -ouex pipefail
 
 RELEASE="$(rpm -E %fedora)"
 
-
 ### Install packages
 
 # Packages can be installed from any enabled yum repo on the image.
@@ -14,6 +13,7 @@ RELEASE="$(rpm -E %fedora)"
 
 # this installs a package from fedora repos
 # rpm-ostree install screen
+rpm-ostree install zoxide
 
 # this would install a package from rpmfusion
 # rpm-ostree install vlc
@@ -53,39 +53,4 @@ systemctl enable windscribe-helper
 echo "Installing HP bullcrap"
 
 HPLIP_VERSION="3.23.12"
-
-# mkdir /tmp/hplip
-# curl -Lo "hplip-${HPLIP_VERSION}.tar.gz" "https://sourceforge.net/projects/hplip/files/hplip/${HPLIP_VERSION}/hplip-${HPLIP_VERSION}.tar.gz/download" && \
-# 	mv hplip-${HPLIP_VERSION}.tar.gz /tmp/ && \
-# 	tar -z -x --no-same-owner --no-same-permissions -f /tmp/hplip-${HPLIP_VERSION}.tar.gz -C /tmp/hplip --strip-components=1
-# cp -r /tmp/hplip/prnt/ /usr/share/hplip/ && \
-# 	rm -r /tmp/hplip
-
-# All of that above was a dead end.
-
-# Prepare build directory
-# cd /tmp/
-# mkdir rpmbuild
-# mkdir rpmbuild/BUILD
-# mkdir rpmbuild/BUILDROOT
-# mkdir -p rpmbuild/RPMS/x86_64
-# mkdir rpmbuild/SOURCES
-# mkdir rpmbuild/SPECS
-# mkdir rpmbuild/SRPMS
-
-# Download the .spec for building an RPM
-# git clone 'https://gitlab.com/greysector/rpms/hplip-plugin.git' && \
-# mv hplip-plugin/hplip-plugin.spec rpmbuild/SPECS/
-# mv hplip-plugin/* rpmbuild/SOURCES/
-
-# Download HP's plugins and move it to SOURCES
-# curl -Lo hplip-${HPLIP_VERSION}-plugin.run https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run
-# curl -Lo hplip-${HPLIP_VERSION}-plugin.run.asc https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run.asc
-# mv hplip-${HPLIP_VERSION}-plugin.* rpmbuild/SOURCES/
-
-# Time to build
-# echo "Building hplip-plugin RPM"
-# cd rpmbuild
-# rpmbuild -bb SPECS/hplip-plugin.spec
-
 rpm-ostree install /tmp/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm
