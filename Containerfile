@@ -39,7 +39,7 @@ ARG SOURCE_SUFFIX="-gnome"
 ARG SOURCE_TAG="latest"
 
 # Build HP plugin
-ARG HPLIP_VERSION="3.23.12"
+ARG HPLIP_VERSION="3.24.4"
 FROM fedora-minimal:38 as builder
 
 # Install build tools
@@ -54,7 +54,7 @@ RUN rpmdev-setuptree && \
     mv hplip-plugin/* /root/rpmbuild/SOURCES/ && \
  
     # Download HP's plugins and move it to SOURCES
-    HPLIP_VERSION="3.23.12" && \
+    HPLIP_VERSION="3.24.4" && \
     curl -Lo hplip-${HPLIP_VERSION}-plugin.run https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run && \
     curl -Lo hplip-${HPLIP_VERSION}-plugin.run.asc https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run.asc && \
     mv hplip-${HPLIP_VERSION}-plugin.* /root/rpmbuild/SOURCES/ && \
