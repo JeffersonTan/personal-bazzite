@@ -52,6 +52,4 @@ systemctl enable windscribe-helper
 
 ### Install HP drivers
 echo "Installing HP bullcrap"
-
-HPLIP_VERSION="3.23.12"
 rpm-ostree install /tmp/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm
