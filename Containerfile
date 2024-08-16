@@ -40,6 +40,7 @@ ARG SOURCE_TAG="latest"
 
 # Build HP plugin
 ARG HPLIP_VERSION="3.24.4"
+ENV HPLIP_VERSION="3.24.4"
 FROM fedora-minimal:38 as builder
 
 # Install build tools
@@ -70,7 +71,6 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 ENV OS_VERSION=40
 
 # Copy build artifact
-ARG HPLIP_VERSION="3.24.4"
 COPY --from=builder /root/rpmbuild/RPMS/x86_64/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm /tmp
 
 ### 3. MODIFICATIONS
