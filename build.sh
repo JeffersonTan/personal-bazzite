@@ -16,8 +16,6 @@ RELEASE="$(rpm -E %fedora)"
 rpm-ostree install zoxide
 rpm-ostree install nodejs
 rpm-ostree install dnf-plugins-core
-dnf copr enable codifryed/CoolerControl
-rpm-ostree install coolercontrol
 
 # this would install a package from rpmfusion
 # rpm-ostree install vlc
@@ -25,6 +23,10 @@ rpm-ostree install coolercontrol
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
+
+# Install CoolerControl
+wget -c https://copr.fedorainfracloud.org/coprs/codifryed/CoolerControl/repo/fedora-40/codifryed-CoolerControl-fedora-40.repo && mv codifryed-CoolerControl-fedora-40.repo /etc/yum.repos.d/
+rpm-ostree update --install coolercontrol
 
 ### Install Windscribe
 echo "Installing Windscribe VPN"
