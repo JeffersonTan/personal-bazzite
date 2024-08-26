@@ -16,11 +16,6 @@ RELEASE="$(rpm -E %fedora)"
 rpm-ostree install zoxide
 rpm-ostree install nodejs
 rpm-ostree install dnf-plugins-core
-<<<<<<< HEAD
-=======
-dnf copr enable codifryed/CoolerControl
-rpm-ostree install coolercontrol
->>>>>>> a6ad23ab8792b18b146e856671d900a74bac7a09
 
 # this would install a package from rpmfusion
 # rpm-ostree install vlc
