@@ -25,8 +25,8 @@ rpm-ostree install dnf-plugins-core
 systemctl enable podman.socket
 
 # Install CoolerControl
-wget -c https://copr.fedorainfracloud.org/coprs/codifryed/CoolerControl/repo/fedora-40/codifryed-CoolerControl-fedora-40.repo && mv codifryed-CoolerControl-fedora-40.repo /etc/yum.repos.d/
-rpm-ostree update --install coolercontrol
+wget -c https://copr.fedorainfracloud.org/coprs/codifryed/CoolerControl/repo/fedora-40/codifryed-CoolerControl-fedora-40.repo && mv "codifryed-CoolerControl-fedora-40.repo" "/etc/yum.repos.d/_copr_codifryed-CoolerControl-fedora-40.repo"
+rpm-ostree install coolercontrol
 
 ### Install Windscribe
 echo "Installing Windscribe VPN"
