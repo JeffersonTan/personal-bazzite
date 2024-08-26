@@ -15,6 +15,9 @@ RELEASE="$(rpm -E %fedora)"
 # rpm-ostree install screen
 rpm-ostree install zoxide
 rpm-ostree install nodejs
+rpm-ostree install dnf-plugins-core
+dnf copr enable codifryed/CoolerControl
+rpm-ostree install coolercontrol
 
 # this would install a package from rpmfusion
 # rpm-ostree install vlc
@@ -49,9 +52,10 @@ EOF
 
 # Enable systemd unit(s)
 systemctl enable windscribe-helper
+systemctl enable coolercontrold
 
 ### Install HP drivers
 echo "Installing HP bullcrap"
 
-HPLIP_VERSION="3.23.12"
+HPLIP_VERSION="3.24.4"
 rpm-ostree install /tmp/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm
