@@ -16,6 +16,10 @@ RELEASE="$(rpm -E %fedora)"
 rpm-ostree install zoxide
 rpm-ostree install nodejs
 rpm-ostree install dnf-plugins-core
+rpm-ostree install hplip
+rpm-ostree install hplip-common
+rpm-ostree install hplip-gui
+rpm-ostree install hplip-libs
 
 # this would install a package from rpmfusion
 # rpm-ostree install vlc
