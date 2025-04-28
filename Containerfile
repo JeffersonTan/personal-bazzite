@@ -60,6 +60,7 @@ RUN rpmdev-setuptree && \
 
 RUN echo "Building hplip-plugin RPM" && \
     cd /root/rpmbuild && \
+    tree /root/rpmbuild && \
     rpmbuild -bb /root/rpmbuild/SPECS/hplip-plugin.spec &&
 
 RUN ls /root/rpmbuild/RPMS/x86_64/hplip-plugin-*-1.x86_64.rpm && \
