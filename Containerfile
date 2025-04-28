@@ -56,17 +56,14 @@ RUN rpmdev-setuptree && \
     HPLIP_VERSION=`grep -Eo '[0-9]\.[0-9].\.[0-9]' /root/rpmbuild/SPECS/hplip-plugin.spec | head -1` && \
     curl -Lo hplip-${HPLIP_VERSION}-plugin.run https://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/hplip-${HPLIP_VERSION}-plugin.run && \
     curl -Lo hplip-${HPLIP_VERSION}-plugin.run.asc https://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/hplip-${HPLIP_VERSION}-plugin.run.asc && \
-    mv hplip-${HPLIP_VERSION}-plugin.* /root/rpmbuild/SOURCES/ && \
-    ostree container commit
+    mv hplip-${HPLIP_VERSION}-plugin.* /root/rpmbuild/SOURCES/
 
 RUN echo "Building hplip-plugin RPM" && \
     cd /root/rpmbuild && \
-    rpmbuild -bb /root/rpmbuild/SPECS/hplip-plugin.spec && \
-    ostree container commit
+    rpmbuild -bb /root/rpmbuild/SPECS/hplip-plugin.spec &&
 
 RUN ls /root/rpmbuild/RPMS/x86_64/hplip-plugin-*-1.x86_64.rpm && \
-    mv /root/rpmbuild/RPMS/x86_64/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm /root/rpmbuild/RPMS/x86_64/hplip-plugin-latest-1.x86_64.rpm && \
-    ostree container commit
+    mv /root/rpmbuild/RPMS/x86_64/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm /root/rpmbuild/RPMS/x86_64/hplip-plugin-latest-1.x86_64.rpm
 
 ### 2. SOURCE IMAGE
 ## this is a standard Containerfile FROM using the build ARGs above to select the right upstream image
