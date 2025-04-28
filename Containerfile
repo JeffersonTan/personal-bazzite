@@ -53,7 +53,7 @@ RUN rpmdev-setuptree && \
     mv hplip-plugin/* /root/rpmbuild/SOURCES/ && \
  
     # Download HP's plugins and move it to SOURCES
-    HPLIP_VERSION=`grep -Eo '[0-9]\.[0-9].\.[0-9]' hplip-plugin.spec | head -1` && \
+    HPLIP_VERSION=`grep -Eo '[0-9]\.[0-9].\.[0-9]' /root/rpmbuild/SOURCES/hplip-plugin.spec | head -1` && \
     curl -Lo hplip-${HPLIP_VERSION}-plugin.run https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run && \
     curl -Lo hplip-${HPLIP_VERSION}-plugin.run.asc https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run.asc && \
     mv hplip-${HPLIP_VERSION}-plugin.* /root/rpmbuild/SOURCES/ && \
