@@ -39,7 +39,6 @@ ARG SOURCE_SUFFIX="-gnome"
 ARG SOURCE_TAG="latest"
 
 # Build HP plugin
-ARG HPLIP_VERSION="3.24.4"
 FROM fedora-minimal:38 as builder
 
 # Install build tools
@@ -54,7 +53,7 @@ RUN rpmdev-setuptree && \
     mv hplip-plugin/* /root/rpmbuild/SOURCES/ && \
  
     # Download HP's plugins and move it to SOURCES
-    HPLIP_VERSION="3.24.4" && \
+    HPLIP_VERSION=`grep -Eo '[0-9]\.[0-9].\.[0-9]' hplip-plugin.spec | head -1` && \
     curl -Lo hplip-${HPLIP_VERSION}-plugin.run https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run && \
     curl -Lo hplip-${HPLIP_VERSION}-plugin.run.asc https://developers.hp.com/sites/default/files/hplip-${HPLIP_VERSION}-plugin.run.asc && \
     mv hplip-${HPLIP_VERSION}-plugin.* /root/rpmbuild/SOURCES/ && \
@@ -70,8 +69,8 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 ENV OS_VERSION=40
 
 # Copy build artifact
-ARG HPLIP_VERSION="3.24.4"
-COPY --from=builder /root/rpmbuild/RPMS/x86_64/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm /tmp
+# ARG HPLIP_VERSION="3.24.4" # HPLIP version that's used
+COPY --from=builder /root/rpmbuild/RPMS/x86_64/hplip-plugin-*-1.x86_64.rpm /tmp
 
 ### 3. MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
