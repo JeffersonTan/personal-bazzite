@@ -63,5 +63,4 @@ systemctl enable coolercontrold
 ### Install HP drivers
 echo "Installing HP bullcrap"
 
-HPLIP_VERSION="3.24.4"
-rpm-ostree install /tmp/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm
+rpm-ostree install /tmp/hplip-plugin-latest-1.x86_64.rpm

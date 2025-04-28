@@ -62,15 +62,16 @@ RUN rpmdev-setuptree && \
     echo "Building hplip-plugin RPM" && \
     cd /root/rpmbuild && \
     rpmbuild -bb /root/rpmbuild/SPECS/hplip-plugin.spec
+    mv /root/rpmbuild/RPMS/x86_64/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm /root/rpmbuild/RPMS/x86_64/hplip-plugin-latest-1.x86_64.rpm
 
 ### 2. SOURCE IMAGE
 ## this is a standard Containerfile FROM using the build ARGs above to select the right upstream image
 FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
-ENV OS_VERSION=40
+ENV OS_VERSION=41
 
 # Copy build artifact
 # ARG HPLIP_VERSION="3.24.4" # HPLIP version that's used
-COPY --from=builder /root/rpmbuild/RPMS/x86_64/hplip-plugin-*-1.x86_64.rpm /tmp
+COPY --from=builder /root/rpmbuild/RPMS/x86_64/hplip-plugin-latest-1.x86_64.rpm /tmp
 
 ### 3. MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
