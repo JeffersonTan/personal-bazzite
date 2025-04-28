@@ -60,12 +60,10 @@ RUN rpmdev-setuptree && \
 
 RUN echo "Building hplip-plugin RPM" && \
     cd /root/rpmbuild && \
-    rpmbuild -bb /root/rpmbuild/SPECS/hplip-plugin.spec || BUILD_FAILED=1
+    rpmbuild -bb /root/rpmbuild/SPECS/hplip-plugin.spec
+
+RUN ls /root/rpmbuild/RPMS/x86_64/hplip-plugin-*-1.x86_64.rpm && \
     mv /root/rpmbuild/RPMS/x86_64/hplip-plugin-${HPLIP_VERSION}-1.x86_64.rpm /root/rpmbuild/RPMS/x86_64/hplip-plugin-latest-1.x86_64.rpm 
-    if [ ${BUILD_FAILED:-0} -eq 1 ]
-        then
-        echo "Build had failed"
-    fi
 
 ### 2. SOURCE IMAGE
 ## this is a standard Containerfile FROM using the build ARGs above to select the right upstream image
