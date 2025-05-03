@@ -31,7 +31,6 @@ rpm-ostree install virt-manager-common
 rpm-ostree install libvirt-daemon-kvm
 rpm-ostree install libvirt-glib
 rpm-ostree install libvirt-ssh-proxy
-rpm-ostree install lact-libadwaita
 
 # Install Blender and dependencies
 rpm-ostree install blender
