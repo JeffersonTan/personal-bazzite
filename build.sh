@@ -26,6 +26,12 @@ rpm-ostree install powerline-fonts
 rpm-ostree install virt-manager
 rpm-ostree install zsh
 rpm-ostree install zoxide
+rpm-ostree install virt-manager
+rpm-ostree install virt-manager-common
+rpm-ostree install libvirt-daemon-kvm
+rpm-ostree install libvirt-glib
+rpm-ostree install libvirt-ssh-proxy
+rpm-ostree install lact-libadwaita
 
 # Install Blender and dependencies
 rpm-ostree install blender
@@ -33,6 +39,12 @@ rpm-ostree install hip-devel
 rpm-ostree install hipblas
 rpm-ostree install hipsolver
 rpm-ostree install hipsparse
+rpm-ostree install rocblas
+rpm-ostree install rocm-comgr-devel
+rpm-ostree install rocm-hip-devel
+rpm-ostree install rocm-runtime-devel
+rpm-ostree install rocsolver
+rpm-ostree install rocsparse
 
 rpm-ostree install NetworkManager-l2tp-gnome
 
