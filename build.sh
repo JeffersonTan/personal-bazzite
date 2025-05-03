@@ -63,6 +63,7 @@ systemctl enable podman.socket
 wget -c https://copr.fedorainfracloud.org/coprs/codifryed/CoolerControl/repo/fedora-40/codifryed-CoolerControl-fedora-40.repo && mv "codifryed-CoolerControl-fedora-40.repo" "/etc/yum.repos.d/_copr_codifryed-CoolerControl-fedora-40.repo"
 rpm-ostree install coolercontrol
 
+: '
 ### Install Windscribe
 echo "Installing Windscribe VPN"
 
@@ -86,6 +87,7 @@ ln -s "${OPT_PATH}/Windscribe" /usr/bin
 cat >/usr/lib/tmpfiles.d/windscribe.conf <<EOF
 L  /opt/windscribe /usr/lib/windscribe
 EOF
+'
 
 # Enable systemd unit(s)
 systemctl enable windscribe-helper
