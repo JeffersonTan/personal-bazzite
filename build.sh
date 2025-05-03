@@ -13,13 +13,33 @@ RELEASE="$(rpm -E %fedora)"
 
 # this installs a package from fedora repos
 # rpm-ostree install screen
-rpm-ostree install zoxide
-rpm-ostree install nodejs
+rpm-ostree install android-tools
+rpm-ostree install docker-compose
 rpm-ostree install dnf-plugins-core
 rpm-ostree install hplip
 rpm-ostree install hplip-common
 rpm-ostree install hplip-gui
 rpm-ostree install hplip-libs
+rpm-ostree install libjxl-utils
+rpm-ostree install nodejs
+rpm-ostree install powerline-fonts
+rpm-ostree install virt-manager
+rpm-ostree install zsh
+rpm-ostree install zoxide
+
+# Install Blender and dependencies
+rpm-ostree install blender
+rpm-ostree install hip-devel
+rpm-ostree install hipblas
+rpm-ostree install hipsolver
+rpm-ostree install hipsparse
+
+rpm-ostree install NetworkManager-l2tp-gnome
+
+### Install HP drivers
+echo "Installing HP bullcrap"
+
+rpm-ostree install /tmp/hplip-plugin-latest-1.x86_64.rpm
 
 # this would install a package from rpmfusion
 # rpm-ostree install vlc
@@ -59,8 +79,3 @@ EOF
 # Enable systemd unit(s)
 systemctl enable windscribe-helper
 systemctl enable coolercontrold
-
-### Install HP drivers
-echo "Installing HP bullcrap"
-
-rpm-ostree install /tmp/hplip-plugin-latest-1.x86_64.rpm
