@@ -49,6 +49,10 @@ systemctl enable podman.socket
 wget -c https://copr.fedorainfracloud.org/coprs/codifryed/CoolerControl/repo/fedora-40/codifryed-CoolerControl-fedora-40.repo && mv "codifryed-CoolerControl-fedora-40.repo" "/etc/yum.repos.d/_copr_codifryed-CoolerControl-fedora-40.repo"
 rpm-ostree install coolercontrol
 
+# Install DwarFS
+wget -c https://copr.fedorainfracloud.org/coprs/jc141/DwarFS/repo/fedora-42/jc141-DwarFS-fedora-42.repo && mv "jc141-DwarFS-fedora-42.repo" "/etc/yum.repos.d/_copr_jc141-DwarFS-fedora-42.repo"
+rpm-ostree install dwarfs
+
 : '
 ### Install Windscribe
 echo "Installing Windscribe VPN"
