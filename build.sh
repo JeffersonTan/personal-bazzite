@@ -23,8 +23,7 @@ rpm-ostree install hplip-libs
 rpm-ostree install ImageMagick
 rpm-ostree install ImageMagick-heic
 rpm-ostree install ImageMagick-libs
-rpm-ostree install libheif-freeworld
-rpm-ostree install libheif-tools
+rpm-ostree install libheif
 rpm-ostree install libjxl-utils
 rpm-ostree install nodejs
 rpm-ostree install powerline-fonts
