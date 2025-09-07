@@ -57,6 +57,10 @@ rpm-ostree install coolercontrol
 wget -c https://copr.fedorainfracloud.org/coprs/jc141/DwarFS/repo/fedora-42/jc141-DwarFS-fedora-42.repo && mv "jc141-DwarFS-fedora-42.repo" "/etc/yum.repos.d/_copr_jc141-DwarFS-fedora-42.repo"
 rpm-ostree install dwarfs
 
+# Install lsfg-vk
+dnf copr enable jackgreiner/lsfg-vk-git 
+rpm-ostree install lsfg-vk-ui
+
 : '
 ### Install Windscribe
 echo "Installing Windscribe VPN"
