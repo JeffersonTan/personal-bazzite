@@ -59,7 +59,7 @@ rpm-ostree install dwarfs
 
 # Install lsfg-vk
 dnf copr enable jackgreiner/lsfg-vk-git 
-rpm-ostree install lsfg-vk-ui
+rpm-ostree install lsfg-vk
 
 : '
 ### Install Windscribe
