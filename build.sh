@@ -58,8 +58,8 @@ wget -c https://copr.fedorainfracloud.org/coprs/jc141/DwarFS/repo/fedora-42/jc14
 rpm-ostree install dwarfs
 
 # Install lsfg-vk
-dnf copr enable jackgreiner/lsfg-vk-git 
-rpm-ostree install lsfg-vk
+wget -c https://copr.fedorainfracloud.org/coprs/jackgreiner/lsfg-vk-git/repo/fedora-42/jackgreiner-lsfg-vk-git-fedora-42.repo && mv "jackgreiner-lsfg-vk-git-fedora-42.repo" "/etc/yum.repos.d/_copr_jackgreiner-lsfg-vk-git-fedora-42.repo"
+rpm-ostree install lsfg-vk-ui
 
 : '
 ### Install Windscribe
