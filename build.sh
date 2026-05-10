@@ -49,14 +49,6 @@ rpm-ostree install /tmp/hplip-plugin-latest-1.x86_64.rpm
 
 systemctl enable podman.socket
 
-# Install CoolerControl
-wget -c https://copr.fedorainfracloud.org/coprs/codifryed/CoolerControl/repo/fedora-40/codifryed-CoolerControl-fedora-40.repo && mv "codifryed-CoolerControl-fedora-40.repo" "/etc/yum.repos.d/_copr_codifryed-CoolerControl-fedora-40.repo"
-rpm-ostree install coolercontrol
-
-# Install DwarFS
-wget -c https://copr.fedorainfracloud.org/coprs/jc141/DwarFS/repo/fedora-42/jc141-DwarFS-fedora-42.repo && mv "jc141-DwarFS-fedora-42.repo" "/etc/yum.repos.d/_copr_jc141-DwarFS-fedora-42.repo"
-rpm-ostree install dwarfs
-
 # Install lsfg-vk
 wget -c https://copr.fedorainfracloud.org/coprs/jackgreiner/lsfg-vk-git/repo/fedora-42/jackgreiner-lsfg-vk-git-fedora-42.repo && mv "jackgreiner-lsfg-vk-git-fedora-42.repo" "/etc/yum.repos.d/_copr_jackgreiner-lsfg-vk-git-fedora-42.repo"
 rpm-ostree install lsfg-vk-ui
