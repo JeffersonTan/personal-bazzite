@@ -81,4 +81,3 @@ EOF
 
 # Enable systemd unit(s)
 # systemctl enable windscribe-helper
-systemctl enable coolercontrold
